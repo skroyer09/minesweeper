@@ -8,7 +8,7 @@ const endGameText = document.querySelector(".end-game-text");
 const playAgainButton = document.querySelector(".play-again");
 
 const totalCells = 100;
-const totalBombs = 30;
+const totalBombs = 40;
 const maxScore = 10;
 const bombsList = [];
 
