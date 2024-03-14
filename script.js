@@ -8,7 +8,7 @@ const endGameText = document.querySelector(".end-game-text");
 const playAgainButton = document.querySelector(".play-again");
 
 const totalCells = 100;
-const totalBombs = 40;
+const totalBombs = 30;
 const maxScore = 10;
 const bombsList = [];
 
@@ -31,6 +31,11 @@ for (let i = 1; i <= 100; i++) {
     if (bombsList.includes(i)) {
       cell.classList.add("cell-bomb");
       endGame(false);
+    } else {
+      const adjacentBombs = countAdjacentBombs(i);
+      if (adjacentBombs > 0) {
+        cell.innerText = adjacentBombs;
+      }
     }
 
     cell.classList.add("cell-clicked");
@@ -39,6 +44,24 @@ for (let i = 1; i <= 100; i++) {
 
   grid.appendChild(cell);
 }
+
+function countAdjacentBombs(cellNumber) {
+  let count = 0;
+  const adjacentCells = [
+    cellNumber - 11, cellNumber - 10, cellNumber - 9,
+    cellNumber - 1, cellNumber + 1,
+    cellNumber + 9, cellNumber + 10, cellNumber + 11
+  ];
+
+  adjacentCells.forEach(adjacent => {
+    if (bombsList.includes(adjacent)) {
+      count++;
+    }
+  });
+
+  return count;
+}
+
 
 while (bombsList.length < totalBombs) {
   // Generate a random number between 1 and 100 //
